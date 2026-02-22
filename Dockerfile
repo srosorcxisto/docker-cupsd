@@ -52,7 +52,9 @@ RUN apt-get update \
     sudo \
     usbutils \
     whois \
- && if ls /tmp/debs/*.deb >/dev/null 2>&1; then apt-get install -y /tmp/debs/*.deb; fi \
+ && if ls /tmp/debs/*.deb >/dev/null 2>&1; then \
+      dpkg -i --force-all /tmp/debs/*.deb || apt-get -f install -y; \
+    fi \
  && rm -rf /var/lib/apt/lists/* /tmp/debs
 
 # Expose cups
